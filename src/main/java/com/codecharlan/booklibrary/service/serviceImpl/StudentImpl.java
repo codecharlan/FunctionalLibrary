@@ -8,9 +8,7 @@ import com.codecharlan.booklibrary.service.PriorityQueueRequest;
 import com.codecharlan.booklibrary.service.QueueRequest;
 import com.codecharlan.booklibrary.subclass.LibraryCard;
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 public class StudentImpl implements PriorityQueueRequest, QueueRequest {
     Library library = Library.getInstance();
@@ -25,12 +23,12 @@ public class StudentImpl implements PriorityQueueRequest, QueueRequest {
                 case SENIOR_STUDENT -> bookRequest.getPriorityQueue().offer((new BookRequest(Role.SENIOR_STUDENT, 2)));
                 case JUNIOR_STUDENT -> bookRequest.getPriorityQueue().offer((new BookRequest(Role.JUNIOR_STUDENT, 3)));
             }
-            library.getBooksAvailable().put(String.valueOf(book), library.getBooksAvailable().get(String.valueOf(book)) - 1);
+            library.getBooksAvailable().computeIfPresent(String.valueOf(book), (key, value) -> value - 1);
 
         } else {
             return book + " is not available";
         }
-        if(role.equals(Role.JUNIOR_STUDENT)) {
+        if (role.equals(Role.JUNIOR_STUDENT)) {
             return book.getBookTitle() + " has been requested by " + studentCard.getName() + " who is a : " + role;
         } else {
             return book.getBookTitle() + " has been requested by " + seniorStudent.getName() + " who is a : " + role;
@@ -44,19 +42,16 @@ public class StudentImpl implements PriorityQueueRequest, QueueRequest {
                 case SENIOR_STUDENT -> bookRequest.getQueue().offer(Role.SENIOR_STUDENT);
                 case JUNIOR_STUDENT -> bookRequest.getQueue().offer(Role.JUNIOR_STUDENT);
             }
-            library.getBooksAvailable().put(String.valueOf(bookTitle), library.getBooksAvailable().get(String.valueOf(bookTitle)) - 1);
-
+            library.getBooksAvailable().computeIfPresent(String.valueOf(bookTitle), (key, value) -> value - 1);
         } else {
             return bookTitle + " is not available";
         }
-        if(role.equals(Role.JUNIOR_STUDENT)) {
+        if (role.equals(Role.JUNIOR_STUDENT)) {
             return bookTitle.getBookTitle() + " has been requested by " + studentCard.getName() + " who is a : " + role;
         } else {
             return bookTitle.getBookTitle() + " has been requested by " + seniorStudent.getName() + " who is a : " + role;
         }
     }
-
-
 
     @Override
     public String toString() {

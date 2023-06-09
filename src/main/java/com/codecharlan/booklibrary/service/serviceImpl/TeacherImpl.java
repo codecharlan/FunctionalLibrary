@@ -49,8 +49,6 @@ public class TeacherImpl implements PriorityQueueRequest, QueueRequest {
         return bookTitle.getBookTitle() + " has been requested by " + teacherCard.getName() + " who is a: " + role;
     }
 
-
-
     @Override
     public String toString() {
         return "TeacherImpl{" +

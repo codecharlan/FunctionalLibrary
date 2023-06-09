@@ -1,6 +1,7 @@
 package com.codecharlan.booklibrary;
 
 import com.codecharlan.booklibrary.enums.Role;
+import com.codecharlan.booklibrary.model.BookRequest;
 import com.codecharlan.booklibrary.model.Librarian;
 import com.codecharlan.booklibrary.repository.Book;
 import com.codecharlan.booklibrary.repository.Library;
@@ -29,12 +30,14 @@ class LibrarianTest {
     Date  studentTakeBookDate;
     Date studentReturnBookDate;
     TeacherImpl teacherimpl;
+    BookRequest bookRequest;
     @BeforeEach
     void setUp() {
         studentimpl = new StudentImpl();
         teacherimpl = new TeacherImpl();
         library = Library.getInstance();
         book = Book.getInstance();
+        bookRequest = BookRequest.getInstance();
         library = Library.getInstance();
         book = Book.getInstance();
         studentTakeBookDate = new Date(12, 03, 2023);
@@ -65,12 +68,12 @@ class LibrarianTest {
 
     @Test
     void givePriorityBook() {
-    Assertions.assertFalse(book.getPriorityQueue().isEmpty());
+    Assertions.assertFalse(bookRequest.getPriorityQueue().isEmpty());
     }
 
 
     @Test
     void giveQueueBook() {
-        Assertions.assertFalse(book.getQueue().isEmpty());
+        Assertions.assertFalse(bookRequest.getQueue().isEmpty());
     }
 }

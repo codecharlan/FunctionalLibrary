@@ -55,7 +55,6 @@ public class Librarian extends Employee {
             return " You are not authorised to give out books";
         }
     }
-
     public String giveQueueBook(Book bookRequested) {
         if (bookRequest.getQueue().isEmpty()) {
             return "No books requested";
@@ -70,8 +69,6 @@ public class Librarian extends Employee {
 
         return "No books requested";
     }
-
-
 
     @Override
     public String toString() {

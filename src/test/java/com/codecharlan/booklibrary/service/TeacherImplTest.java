@@ -23,6 +23,7 @@ class TeacherImplTest {
     Date teacherTakeBookDate;
     Date teacherReturnBookDate;
     Librarian librarian;
+    LibraryCard ssstudentCard;
 
     @BeforeEach
     void setUp() {
@@ -33,6 +34,7 @@ class TeacherImplTest {
         studentReturnBookDate = new Date(02, 04, 2023);
         teacherTakeBookDate = new Date(15, 05, 2023);
         teacherReturnBookDate = new Date(3, 06, 2023);
+        ssstudentCard = new LibraryCard("DecaSchool", "Obioma", "A12785", "togile@gmail.com", "07037890890", studentTakeBookDate, studentReturnBookDate);
         studentCard = new LibraryCard("DecaSchool", "Adaoma", "A12345", "rtobe@gmail.com", "07034567890", studentTakeBookDate, studentReturnBookDate);
         teacherCard = new LibraryCard("DecaSchool", "Ifeoma", "A67890", "ifyone@gmail.com", "07034466772", teacherTakeBookDate, teacherReturnBookDate);
         librarian = new Librarian("Tommy", "R345678", "08086754356", "No 3, AnchorWay", new Date(4, 6, 1997), new Date(5, 7, 2023));
@@ -42,7 +44,7 @@ class TeacherImplTest {
     @Test
     void priorityRequestBook() {
         String actual = studentimpl.priorityRequestBook(teacherCard, book, Role.TEACHER);
-        String expected = book + " has been requested by " + teacherCard + " who is a : " + Role.TEACHER;
+        String expected = book.getBookTitle() + " has been requested by " + teacherCard.getName() + " who is a : " + Role.TEACHER;
         boolean value = library.getBooksAvailable().values().toString() != null;
         Assertions.assertNotNull(actual);
         Assertions.assertTrue(value);
@@ -55,7 +57,7 @@ class TeacherImplTest {
     @Test
     void queueRequestBook() {
         String actual = studentimpl.queueRequestBook(teacherCard, book, Role.SENIOR_STUDENT);
-        String expected = book + " has been requested by " + teacherCard + " who is a : " + Role.SENIOR_STUDENT;
+        String expected = book.getBookTitle() + " has been requested by " + teacherCard.getName() + " who is a : " + Role.SENIOR_STUDENT;
         Assertions.assertNotNull(actual);
         Assertions.assertEquals(expected, actual);
         Assertions.assertTrue(library.getBooksAvailable().containsKey(String.valueOf(book)));
